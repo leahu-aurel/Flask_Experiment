@@ -7,7 +7,7 @@ from flask_blog.models import User, Post
 bp = Blueprint('users', __name__)
 
 
-bp.route("/register", methods=['GET', 'POST'])
+@bp.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -16,5 +16,5 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
-        return redirect(url_for('users.login'))
+        # return redirect(url_for('users.login'))
     return render_template('users/register.html', title='Register', form=form)

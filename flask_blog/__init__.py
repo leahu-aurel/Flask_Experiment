@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask_blog.config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -13,7 +13,9 @@ def create_app(config_class=Config):
     db.init_app(app)
     bcrypt.init_app(app)
 
-    from flask_blog.users import routes
-    app.register_blueprint(routes.bp)
+    from flask_blog.users.routes import bp as usersbp
+    app.register_blueprint(usersbp)
+    from flask_blog.main.routes import bp as mainbp
+    app.register_blueprint(mainbp)
 
     return app
